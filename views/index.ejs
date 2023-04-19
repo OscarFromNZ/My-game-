@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("header") %>
+<body>
+  <header>
+    <h1><%= title %></h1>
+  </header>
+  
+  <main>
+    <canvas id="gameCanvas" width="1500" height="800"></canvas>
+  </main>
+
+  <%- include("footer") %>
+
+  <script src="/js/game.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/projectile.js"></script>
+  <script src="/js/utils/utilities.js"></script>
+  <script src="/js/utils/constants.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
