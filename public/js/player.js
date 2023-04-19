@@ -1,29 +1,41 @@
 class Player {
-    constructor(x, y, width, height, color) {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
-        this.color = color;
-        this.speed = 5;
+        this.width = CONSTANTS.PLAYER_WIDTH;
+        this.height = CONSTANTS.PLAYER_HEIGHT;
+        this.color = CONSTANTS.PLAYER_COLOR;
+        this.speed = CONSTANTS.PLAYER_SPEED;
         this.cursorX = 0;
         this.cursorY = 0;
     }
 
     // Update player state
     update() {
+        // Movement mechanics & handling
+        const moveX = (direction) => {
+            this.x += this.speed * direction;
+            this.x = Math.max(0, Math.min(this.x, game.canvas.width - this.width));
+        };
+
+        const moveY = (direction) => {
+            this.y += this.speed * direction;
+            this.y = Math.max(0, Math.min(this.y, game.canvas.height - this.height));
+        };
+
+
         // Handle player movement (example using arrow keys)
         if (this.isKeyPressed('KeyW')) {
-            this.y -= this.speed;
+            moveY(-1);
         }
         if (this.isKeyPressed('KeyS')) {
-            this.y += this.speed;
+            moveY(1);
         }
         if (this.isKeyPressed('KeyA')) {
-            this.x -= this.speed;
+            moveX(-1);
         }
         if (this.isKeyPressed('KeyD')) {
-            this.x += this.speed;
+            moveX(+1);
         }
 
         // Handle shooting
@@ -51,23 +63,13 @@ class Player {
         // Calculate the angle between the player and the cursor
         const dx = this.cursorX - (this.x + this.width / 2);
         const dy = this.cursorY - (this.y + this.height / 2);
-
-        // Set the angle, speed, width, height, and color of the projectile
         const projectileAngle = Math.atan2(dy, dx);
-        const projectileSpeed = 10;
-        const projectileWidth = 5;
-        const projectileHeight = 10;
-        const projectileColor = 'black';
 
         // Create a new projectile and add it to the game
         const projectile = new Projectile(
             projectileX,
             projectileY,
             projectileAngle,
-            projectileSpeed,
-            projectileWidth,
-            projectileHeight,
-            projectileColor
         );
         game.addEntity(projectile);
     }

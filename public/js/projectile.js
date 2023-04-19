@@ -1,12 +1,12 @@
 class Projectile {
-    constructor(x, y, angle, speed, width, height, color) {
+    constructor(x, y, angle) {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.speed = speed;
-        this.width = width;
-        this.height = height;
-        this.color = color;
+        this.speed = CONSTANTS.PROJECTILE_SPEED;
+        this.width = CONSTANTS.PROJECTILE_WIDTH;
+        this.height = CONSTANTS.PROJECTILE_HEIGHT;
+        this.color = CONSTANTS.PROJECTILE_COLOR;
     }
 
     // Update projectile state

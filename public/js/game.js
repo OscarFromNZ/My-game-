@@ -24,6 +24,10 @@ class Game {
         // Clear the canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // Set the background color
+        this.ctx.fillStyle = CONSTANTS.BACKGROUND_COLOR;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
         // Render each entity
         this.entities.forEach(entity => {
             if (entity.render) {

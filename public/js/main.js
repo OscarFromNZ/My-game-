@@ -2,9 +2,13 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// Set canvas size
+canvas.width = CONSTANTS.CANVAS_WIDTH;
+canvas.height = CONSTANTS.CANVAS_HEIGHT;
+
 // Instantiate the game and player objects
 const game = new Game(canvas, ctx);
-const player = new Player(50, 50, 10, 10, "#eb3f76");
+const player = new Player(50, 50);
 
 // Add the player to the game
 game.addEntity(player);
