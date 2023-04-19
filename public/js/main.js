@@ -6,12 +6,9 @@ const ctx = canvas.getContext('2d');
 canvas.width = CONSTANTS.CANVAS_WIDTH;
 canvas.height = CONSTANTS.CANVAS_HEIGHT;
 
-// Instantiate the game and player objects
+// Instantiate the game 
 const game = new Game(canvas, ctx);
-const player = new Player(50, 50);
-
-// Add the player to the game
-game.addEntity(player);
+const player = game.player;
 
 // Handle mouse movements
 canvas.addEventListener('mousemove', (e) => {

@@ -3,6 +3,11 @@ class Game {
         this.canvas = canvas;
         this.ctx = ctx;
         this.entities = [];
+        this.player = new Player(50, 50);
+        this.entities.push(this.player);
+
+        // Spawn initial enemie(s)
+        this.spawnEnemies(1);
     }
 
     // Add an entity to the game
@@ -12,11 +17,29 @@ class Game {
 
     // Update game state
     update() {
-        this.entities.forEach(entity => {
+        // Update entities
+        this.entities.forEach((entity) => {
             if (entity.update) {
-                entity.update();
+                // Pass the player instance to the update method
+                entity.update(this.player, this.entities);
             }
         });
+
+        // Check for collisions between an entity and projectiles
+        for (const entity of this.entities) {
+            // Replace this condition with the appropriate check for your specific entity (e.g., enemy)
+            if (entity instanceof Enemy) {
+                for (const projectile of this.entities) {
+                    // Replace this condition with the appropriate check for your specific projectile
+                    if (projectile instanceof Projectile) {
+                        if (hasCollision(entity, projectile)) {
+                            // Handle collision (e.g., remove both entities or decrease their health)
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
     // Render game scene
@@ -34,5 +57,17 @@ class Game {
                 entity.render(this.ctx);
             }
         });
+    }
+
+    // Spawn enemies
+    spawnEnemies(count) {
+        for (let i = 0; i < count; i++) {
+            // Set random positions and properties for the enemies
+            const x = Math.random() * this.canvas.width;
+            const y = Math.random() * this.canvas.height;
+
+            const enemy = new Enemy(x, y);
+            this.entities.push(enemy);
+        }
     }
 }

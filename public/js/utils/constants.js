@@ -6,8 +6,14 @@ const CONSTANTS = {
     // Player properties
     PLAYER_WIDTH: 20,
     PLAYER_HEIGHT: 20,
-    PLAYER_COLOR: 'red',
+    PLAYER_COLOR: 'blue',
     PLAYER_SPEED: 5,
+
+    // Enemy properties
+    ENEMY_WIDTH: 20,
+    ENEMY_HEIGHT: 20,
+    ENEMY_COLOR: 'red',
+    ENEMY_SPEED: 3,
 
     // Projectile properties
     PROJECTILE_SPEED: 10,
@@ -20,3 +26,5 @@ const CONSTANTS = {
     COLLISION_DISTANCE: 20,
     SHOOTING_COOLDOWN: 200,
 };
+
+// These are all defaults, can be changed for given entitiy
