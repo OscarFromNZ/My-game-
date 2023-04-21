@@ -2,6 +2,7 @@ class Player {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.health = CONSTANTS.PLAYER_HEALTH;
         this.width = CONSTANTS.PLAYER_WIDTH;
         this.height = CONSTANTS.PLAYER_HEIGHT;
         this.color = CONSTANTS.PLAYER_COLOR;
@@ -37,11 +38,6 @@ class Player {
         if (this.isKeyPressed('KeyD')) {
             moveX(+1);
         }
-
-        // Handle shooting
-        if (this.isKeyPressed('Space')) {
-            this.shoot()
-        }
     }
 
     // Render player on canvas
@@ -72,6 +68,11 @@ class Player {
             projectileAngle,
         );
         game.addEntity(projectile);
+        console.log("PROJECTILE: Created projectile");
+    }
+
+    isDead() {
+        return this.health <= 0;
     }
 }
 
@@ -82,4 +83,12 @@ window.addEventListener('keydown', (e) => {
 });
 window.addEventListener('keyup', (e) => {
     window.keyState[e.code] = false;
+});
+
+// Add a new event listener for left-click
+document.getElementById('gameCanvas').addEventListener('mousedown', (e) => {
+    if (e.button === 0) {
+        console.log("PLAYER: Clicked mousedown, shooting")
+        game.player.shoot();
+    }
 });
