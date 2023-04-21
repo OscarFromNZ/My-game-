@@ -33,6 +33,9 @@ class Game {
             return;
         }
 
+        console.log('Before filtering: ', this.entities.filter(entity => entity instanceof Enemy).length);
+
+
         // Update entities and filter out dead enemies
         this.entities = this.entities.filter((entity) => {
             if (entity instanceof Enemy || entity instanceof Player) {
@@ -47,7 +50,7 @@ class Game {
             if (entity instanceof Enemy && entity.isDead()) {
                 // Handle any additional enemy death logic here (e.g., increase score, play sound, etc.)
                 console.log("ENEMY: Enemy is dead");
-                this.spawnEnemies(1);
+
                 return false;
             }
 
@@ -57,13 +60,24 @@ class Game {
                 return false;
             }
 
+            // Log the entity that is being kept
+            console.log('Keeping entity: ', entity);
+
             return true;
         });
+
+        console.log('After filtering: ', this.entities.filter(entity => entity instanceof Enemy).length);
+
+        // Check if enemies exist, if 0 enemies, spawn new enemy
+        if (this.entities.filter(entity => entity instanceof Enemy).length == 0) {
+            // Spawn new enemy
+            this.spawnEnemies(1);
+        }
 
         // Check if the player is dead
         if (this.player.isDead()) {
             console.log("PLAYER: Player is dead");
-            this.entities = this.entities.filter((entity)=> entity = this.player);
+            this.entities = this.entities.filter((entity) => entity = this.player);
             // End game
             return this.endGame();
         }
@@ -98,8 +112,11 @@ class Game {
             const x = Math.random() * this.canvas.width;
             const y = Math.random() * this.canvas.height;
 
+            console.log("GAME: Spawning @ " + x, y);
             const enemy = new Enemy(x, y);
             this.addEntity(enemy);
+            console.log("GAME: Enemies spawned");
+            console.log(this.entities);
         }
     }
 

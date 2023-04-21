@@ -16,6 +16,10 @@ class Projectile {
         this.x += Math.cos(this.angle) * this.speed;
         this.y += Math.sin(this.angle) * this.speed;
 
+        if (this.isOutOfBounds()) {
+            this.shouldBeRemoved = true;
+        }
+
         // Check if the projectile has collided with any entity (except itself)
         entities.forEach((entity) => {
             if (entity instanceof Enemy) {
@@ -36,5 +40,14 @@ class Projectile {
     render(ctx) {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    isOutOfBounds() {
+        return (
+            this.x < 0 ||
+            this.y < 0 ||
+            this.x > game.canvas.width ||
+            this.y > game.canvas.height
+        );
     }
 }  
