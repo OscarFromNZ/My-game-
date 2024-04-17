@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("header") %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="styles/styles.css"> 
+
+</head>
 <body>
-  <header>
-    <h1><%= title %></h1>
-  </header>
-  
-  <main>
-    <canvas id="gameCanvas" width="1500" height="800"></canvas>
-  </main>
+    <header>
+        <h1><%= title %></h1>
+    </header>
+    
+    <main>
+        <canvas id="gameCanvas"></canvas>
+    </main>
 
-  <%- include("footer") %>
-
-  <script src="/js/utils/constants.js"></script>
-  <script src="/js/utils/utilities.js"></script>
-  <script src="/js/game.js"></script>
-  <script src="/js/player.js"></script>
-  <script src="/js/enemy.js"></script>
-  <script src="/js/projectile.js"></script>
-  <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.1.0/pixi.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/dist/bundle.js"></script>
 </body>
 </html>
