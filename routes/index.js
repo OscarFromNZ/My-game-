@@ -7,11 +7,4 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use((req, res, next) => {
-  res.status(404);
-  res.render('404', {
-    title: '404 - Page Not Found'
-  });
-});
-
 module.exports = router;
