@@ -3,15 +3,14 @@ class Game {
         console.log("Hi there from Game!");
         this.socket = io();
 
-        //this.velocity = 2;
-
-        this.velocity = 0; // for testing
+        this.velocity = 2; // for testing
         this.rotationSpeed = 0.02;
         this.rotationAcceleration = 0.001;
         this.maxRotationSpeed = 0.3;
         
-        this.lastAngle = undefined;  // to keep track of the last angle
-        //this.angularVelocity = 0;     
+        this.firstLoop = true; 
+        //this.angularVelocity = 0;
+        this.maxAngularVelocity = 0.1;
         
         this.mouseX = undefined;
         this.mouseY = undefined;
@@ -98,21 +97,30 @@ class Game {
             return console.error('Missing bunny or mouse coordinates.');
         }
     
-        const angleToCursorRad = Math.atan2(this.mouseY - this.bunny.y, this.mouseX - this.bunny.x);
+        // angle it wants to be at
+        let angleToCursorRad = Math.atan2(this.mouseY - this.bunny.y, this.mouseX - this.bunny.x);
     
-        if (this.lastAngle === undefined) {
+        if (this.firstLoop) {
             console.log('bunny rotation setup');
             this.bunny.rotation = angleToCursorRad + 1/2 * Math.PI;
-            this.lastAngle = angleToCursorRad;
+            this.firstLoop = false;
             return;
         }
     
-        let angleDifferenceRad = (angleToCursorRad - this.lastAngle + Math.PI) % (2 * Math.PI) - Math.PI;
+        // shortest angle difference between em
+        let angleDifferenceRad = (angleToCursorRad - this.bunny.rotation) % (2 * Math.PI) + 1/2 * Math.PI;
+
+        // because of fun velocity restrictions
+        let maxChangeInAngle = this.maxAngularVelocity * time.deltaTime; 
+
+        // using the fun velocity restriction
+        let changeInAngle = angleDifferenceRad;
+        
+        if (Math.abs(angleDifferenceRad) > maxChangeInAngle) {
+            changeInAngle = Math.sign(angleDifferenceRad) * maxChangeInAngle;
+        }
     
-        this.bunny.rotation += angleDifferenceRad;
-    
-        // update lastAngle for the next frame
-        this.lastAngle = angleToCursorRad;
+        this.bunny.rotation += changeInAngle;
     
         const distance = this.velocity * time.deltaTime;
         this.bunny.x += Math.cos(this.bunny.rotation - Math.PI / 2) * distance;
