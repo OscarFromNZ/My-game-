@@ -110,11 +110,10 @@ class Game {
     
     // this is all buggy
     updateCamera() {
-        // Adjust the camera's view based on the bunny's position
-        this.app.stage.pivot.x = this.bunny.bunny.x;
-        this.app.stage.pivot.y = this.bunny.bunny.y;
-        this.app.stage.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
-    }
+        // Center the camera on the bunny
+        this.app.stage.position.x = this.app.screen.width / 2 - this.bunny.bunny.x;
+        this.app.stage.position.y = this.app.screen.height / 2 - this.bunny.bunny.y;
+    }    
 
 }
 

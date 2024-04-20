@@ -15,7 +15,7 @@ class Bunny {
 
         this.bunny.anchor.set(0.5);
         this.bunny.scale.set(0.05);
-        this.bunny.pivot.set(0); // 0.5
+        this.bunny.pivot.set(0.5);
 
         this.bunny.x = this.initX
         this.bunny.y = this.initY;
